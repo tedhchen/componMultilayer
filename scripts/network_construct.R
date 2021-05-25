@@ -18,10 +18,11 @@ create_network <- function(years, threshold, directed = T, path = '../data/'){
 
   # List of actors (FI and FA handcoded for now)
   vs <- c(paste('FI', sprintf("%03d", seq(1, 96)), sep = ''), paste('FA', sprintf("%03d", seq(1, 66)), sep = ''), paste('T', sort(unique(unlist(rts[,c(1,3)]))), sep = ''))
+  nsize <- length(vs)
 
   # constructing Matrix
   cat('Constructing network... ')
-  mat <- matrix(0, nrow = length(vs), ncol = length(vs), dimnames = list(vs, vs))
+  mat <- matrix(0, nrow = nsize, ncol = nsize, dimnames = list(vs, vs))
 
   # Filling in Twitter ties
   for(i in 1:nrow(rts)){
@@ -42,7 +43,8 @@ create_network <- function(years, threshold, directed = T, path = '../data/'){
   }
 
   nw <- network(mat, directed = directed)
-  nw%v%'layer.mem' <- c(rep(1, 162), rep(2, (nrow(mat) - 162)))
+  nw%v%'layer.mem' <- c(rep(1, 162), rep(2, (nsize - 162)))
+  nw%v%'org.aff' <- c(1:162, colSums(as.matrix(nw)[1:162, 163:nsize] * matrix(rep(1:162, (nsize - 162)), nrow = 162, byrow = F)))
   cat('DONE\n')
   nw
 }
