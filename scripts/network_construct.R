@@ -48,13 +48,18 @@ create_network <- function(years, threshold, directed = T, path = '../data/'){
 }
 
 make_constraints <- function(nw){
+  # Getting base network info as edgelist container
+  base_attrs <- attributes(as.edgelist(nw))
   nsize <- network.size(nw)
-  mat <- matrix(0, ncol = nsize, nrow = nsize)
-  mat[1:162,1:162] <- 1
-  mat[163:(network.size(nw) - 162), 163:(network.size(nw) - 162)] <- 1
-  diag(mat) <- 0
-  nw <- network(mat, directed = is.directed(nw))
-  nw
+
+  # All combinations of ties within layers
+  el <- rbind(t(combn(1:162, 2)), t(combn(163:nsize, 2)))
+  el <- rbind(el, el[,c(2,1)])
+
+  # Give the free edgelist the proper attributes
+  base_attrs$dim[1] <- nrow(el)
+  attributes(el) <- base_attrs
+  el
 }
 
 simple_plot <- function(nw, l1v.cex = 0.5, l2v.cex = 0.3, l1v.col = 'red', l2v.col = 'gray', isolates = F, arrows = F, labels = F){
