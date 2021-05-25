@@ -46,3 +46,10 @@ create_network <- function(years, threshold, directed = T, path = '../data/'){
   cat('DONE')
   nw
 }
+
+simple_plot <- function(nw, l1v.cex = 0.5, l2v.cex = 0.3, l1v.col = 'red', l2v.col = 'gray', isolates = F, arrows = F, labels = F){
+  plot(nw,
+       vertex.cex = c(rep(l1v.cex, 162), rep(l2v.cex, (network.size(nw) - 162))),
+       vertex.col = c(rep(l1v.col, 162), rep(l2v.col, (network.size(nw) - 162))),
+       displayisolates = isolates, usearrows = arrows, displaylabels = labels)
+}
