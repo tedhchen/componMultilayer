@@ -43,7 +43,17 @@ create_network <- function(years, threshold, directed = T, path = '../data/'){
 
   nw <- network(mat, directed = directed)
   nw%v%'layer.mem' <- c(rep(1, 162), rep(2, (nrow(mat) - 162)))
-  cat('DONE')
+  cat('DONE\n')
+  nw
+}
+
+make_constraints <- function(nw){
+  nsize <- network.size(nw)
+  mat <- matrix(0, ncol = nsize, nrow = nsize)
+  mat[1:162,1:162] <- 1
+  mat[163:(network.size(nw) - 162), 163:(network.size(nw) - 162)] <- 1
+  diag(mat) <- 0
+  nw <- network(mat, directed = is.directed(nw))
   nw
 }
 
