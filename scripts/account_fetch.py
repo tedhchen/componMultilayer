@@ -12,7 +12,7 @@ params.read('config.ini')
 # Functions
 # Takes config file and returns authenticated api object
 def twitter_auth(config):
-	auth = AppAuthHandler(params['keys']['key'], params['keys']['secret'])
+	auth = AppAuthHandler(config['keys']['key'], config['keys']['secret'])
 	api = API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
 	return api
 
