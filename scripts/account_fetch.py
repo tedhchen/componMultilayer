@@ -59,4 +59,14 @@ def process_accounts(acc_info, save_raw = False):
 		output = filter_connections(users, keywords)
 		np.savetxt('check_' + account + '.csv', output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 
-#
+
+# # Example code, uncomment to run:
+# # Loading accounts of interest and their keyword filters
+# acc_info = [['1397523119770832897', ['postdoctoral', 'scientist']], # Ted's account @tedhchen
+# 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
+
+# # Twitter authentication (can be done in some other way if desired)
+# api = twitter_auth(params)
+
+# # Processing the list of accounts; will return one csv per account (and raw file in .pickle format)
+# process_accounts(acc_info, save_raw = True) # save_raw = False to not save unfiltered list of followers and friends
