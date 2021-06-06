@@ -52,10 +52,10 @@ def filter_connections(connections, keywords):
 	return list(filter(None, [check_user(connection, keywords) for connection in filtered]))
 
 #  Wrapper taking list of [account, [keywords]] lists and writing their results to separate csv files
-def process_accounts(acc_info, save_raw = False):
+def process_accounts(acc_info, union = False, save_raw = False):
 	for account, keywords in acc_info:
 		print('Processing ' + account + '.')
-		users = get_connections(account, save_raw = save_raw)
+		users = get_connections(account, union = union, save_raw = save_raw)
 		output = filter_connections(users, keywords)
 		np.savetxt('check_' + account + '.csv', output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 
