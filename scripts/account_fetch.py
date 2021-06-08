@@ -13,7 +13,7 @@ params.read('config.ini')
 def twitter_auth(config, user_auth = False):
 	if user_auth:
 		auth = OAuthHandler(config['keys']['key'], config['keys']['secret'])
-		auth.set_access_token(config['keys']['access'], config['accesssecret'][''])
+		auth.set_access_token(config['keys']['access'], config['key']['accesssecret'])
 	else:
 		auth = AppAuthHandler(config['keys']['key'], config['keys']['secret'])
 	api = API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
