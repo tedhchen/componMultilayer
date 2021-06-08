@@ -2,7 +2,7 @@
 import json, configparser, pickle, csv
 import math
 import numpy as np
-from tweepy import AppAuthHandler, API, Cursor
+from tweepy import AppAuthHandler, OAuthHandler, API, Cursor
 
 # Reading in configuation
 params = configparser.ConfigParser()
@@ -10,8 +10,12 @@ params.read('config.ini')
 
 # Functions
 # Takes config file and returns authenticated api object
-def twitter_auth(config):
-	auth = AppAuthHandler(config['keys']['key'], config['keys']['secret'])
+def twitter_auth(config, user_auth = False):
+	if user_auth:
+		auth = OAuthHandler(config['keys']['key'], config['keys']['secret'])
+		auth.set_access_token(config['keys']['access'], config['accesssecret'][''])
+	else:
+		auth = AppAuthHandler(config['keys']['key'], config['keys']['secret'])
 	api = API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
 	return api
 
