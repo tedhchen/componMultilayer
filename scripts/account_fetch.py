@@ -63,6 +63,16 @@ def process_accounts(acc_info, union = False, save_raw = False):
 		output = filter_connections(users, keywords)
 		np.savetxt('check_' + account + '.csv', output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 
+# Other related utility functions
+def get_followers(account, save_raw = False):
+	flwrs = []
+	for flwr in Cursor(api.followers_ids, user_id = account).items():
+		flwrs.append(flwr)
+	if save_raw:
+		with open('raw_' + account + '.pickle', 'wb') as outpickle:
+			pickle.dump(flwrs, outpickle, protocol = 4)
+	return flwrs
+
 
 # # Example code, uncomment to run:
 # # Loading accounts of interest and their keyword filters
