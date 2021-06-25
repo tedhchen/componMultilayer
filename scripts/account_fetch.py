@@ -2,6 +2,7 @@
 import json, configparser, pickle, csv
 import math
 import numpy as np
+import pandas as pd
 from tweepy import AppAuthHandler, OAuthHandler, API, Cursor
 
 # Reading in configuation
@@ -74,6 +75,14 @@ def get_followers(account, save_raw = False):
 	return flwrs
 
 
+def read_acc_info(path):
+	df = pd.read_csv(path, dtype = 'str', delimiter = ',', encoding = 'utf-8')
+	df = df[df['collectiveMainID'].notna()]
+	acckeys = []
+	for index, line in df.iterrows():
+		acckeys.append([line[0], line[1].split(', ')])
+	return acckeys
+	
 # # Example code, uncomment to run:
 # # Loading accounts of interest and their keyword filters
 # acc_info = [['1397523119770832897', ['postdoctoral', 'scientist']], # Ted's account @tedhchen
