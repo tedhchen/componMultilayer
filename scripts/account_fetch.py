@@ -60,7 +60,11 @@ def filter_connections(connections, keywords):
 def process_accounts(acc_info, union = False, save_raw = False):
 	for account, keywords in acc_info:
 		print('Processing ' + account + '.')
-		users = get_connections(account, union = union, save_raw = save_raw)
+		try:
+			users = get_connections(account, union = union, save_raw = save_raw)
+		except:
+			users = []
+			print(account + ' invalid.')
 		if len(users) > 0:
 			output = filter_connections(users, keywords)
 			np.savetxt('check_' + account + '.csv', output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
