@@ -2,3 +2,4 @@ data/*
 !data/README.txt
 *.RData
 config.ini
+.ipynb_checkpoints
