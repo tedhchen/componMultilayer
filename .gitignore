@@ -3,3 +3,5 @@ data/*
 *.RData
 config.ini
 .ipynb_checkpoints
+*.pdf
+*.pickle
