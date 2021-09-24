@@ -1,5 +1,5 @@
 # Prep
-import json, configparser, pickle, csv
+import json, configparser, pickle, csv, os
 import math
 import numpy as np
 import pandas as pd
@@ -33,7 +33,7 @@ def get_connections(account, union = False, save_raw = False):
 	else:
 		connections = list(set(flwrs).intersection(set(frnds)))
 	if save_raw:
-		with open('raw_' + account + '.pickle', 'wb') as outpickle:
+		with open(os.path.join(config['data']['data'], 'raw_' + account + '.pickle'), 'wb') as outpickle:
 			pickle.dump([frnds, flwrs], outpickle, protocol = 4)
 	return connections
 
@@ -67,7 +67,7 @@ def process_accounts(acc_info, union = False, save_raw = False):
 			print(account + ' invalid.')
 		if len(users) > 0:
 			output = filter_connections(users, keywords)
-			np.savetxt('check_' + account + '.csv', output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
+			np.savetxt(os.path.join(config['data']['data'], 'check_' + account + '.csv'), output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 
 # Other related utility functions
 def get_followers(account, save_raw = False):

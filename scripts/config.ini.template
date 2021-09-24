@@ -1,3 +1,7 @@
+['data']
+data = [data directory]
+mainAccs = [path to file with accounts and filter keywords]
+
 [keys]
 key = 
 secret = 
