@@ -69,7 +69,8 @@ def process_accounts(acc_info, config, union = False, save_raw = False):
 			print(account + ' invalid.')
 		if len(users) > 0:
 			output = filter_connections(users, keywords)
-			np.savetxt(os.path.join(config['data']['data'], 'check_' + account + '.csv'), output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
+			if len(output) > 0:
+				np.savetxt(os.path.join(config['data']['data'], 'check_' + account + '.csv'), output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 
 # Other related utility functions
 def get_followers(account, save_raw = False):
