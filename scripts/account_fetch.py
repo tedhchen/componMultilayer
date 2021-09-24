@@ -5,10 +5,6 @@ import numpy as np
 import pandas as pd
 from tweepy import AppAuthHandler, OAuthHandler, API, Cursor
 
-# Reading in configuation
-params = configparser.ConfigParser()
-params.read('config.ini')
-
 # Functions
 # Takes config file and returns authenticated api object
 def twitter_auth(config, user_auth = False):
@@ -87,19 +83,30 @@ def get_followers(account, save_raw = False):
 
 def read_acc_info(path):
 	df = pd.read_csv(path, dtype = 'str', delimiter = ',', encoding = 'utf-8')
-	df = df[df['collectiveMainID'].notna()]
+	df = df[df['collectiveMain'].notna()]
 	acckeys = []
 	for index, line in df.iterrows():
 		acckeys.append([line[0], line[1].split(', ')])
 	return acckeys
+
+# def create_username2idMap(accs, outpath):
+# 	# coming soon
+# 	return mapping
 	
 # # Example code, uncomment to run:
+# # Reading in configuation
+# params = configparser.ConfigParser()
+# params.read('config.ini')
+
 # # Loading accounts of interest and their keyword filters
-# acc_info = [['1397523119770832897', ['postdoctoral', 'scientist']], # Ted's account @tedhchen
 # 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
+# # 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
+
+# # # OPTION 2: Use external file (see structure in template file)
+# acc_info = read_acc_info(params['data']['mainAccs'])
 
 # # Twitter authentication (can be done in some other way if desired)
 # api = twitter_auth(params)
 
 # # Processing the list of accounts; will return one csv per account (and raw file in .pickle format)
-# process_accounts(acc_info, save_raw = True) # save_raw = False to not save unfiltered list of followers and friends
+# process_accounts(acc_info, params, save_raw = True) # save_raw = False to not save unfiltered list of followers and friends
