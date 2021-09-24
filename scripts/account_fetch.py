@@ -100,7 +100,8 @@ def read_acc_info(path):
 # params.read('config.ini')
 
 # # Loading accounts of interest and their keyword filters
-# 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
+# # OPTION 1: Just enter the list here.
+# # acc_info = [['1397523119770832897', ['postdoctoral', 'scientist']], # Ted's account @tedhchen
 # # 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
 
 # # # OPTION 2: Use external file (see structure in template file)
