@@ -1,6 +1,7 @@
 ['data']
 data = [data directory]
 mainAccs = [path to file with accounts and filter keywords]
+format = [one of 'username' or 'userid']
 
 [keys]
 key = 

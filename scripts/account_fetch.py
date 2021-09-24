@@ -21,13 +21,19 @@ def twitter_auth(config, user_auth = False):
 	return api
 
 # Takes given Twitter ID and returns intersection or union of its followers and friends
-def get_connections(account, union = False, save_raw = False):
+def get_connections(account, config, union = False, save_raw = False):
 	flwrs = []
 	frnds = []
-	for flwr in Cursor(api.followers_ids, user_id = account).items():
-		flwrs.append(flwr)
-	for frnd in Cursor(api.friends_ids, user_id = account).items():
-		frnds.append(frnd)
+	if config['data']['format'] == 'username':
+		for flwr in Cursor(api.followers_ids, screen_name = account).items():
+			flwrs.append(flwr)
+		for frnd in Cursor(api.friends_ids, screen_name = account).items():
+			frnds.append(frnd)
+	else:
+		for flwr in Cursor(api.followers_ids, user_id = account).items():
+			flwrs.append(flwr)
+		for frnd in Cursor(api.friends_ids, user_id = account).items():
+			frnds.append(frnd)
 	if union == True:
 		connections = list(set(flwrs + frnds))
 	else:
@@ -57,11 +63,11 @@ def filter_connections(connections, keywords):
 	return list(filter(None, [check_user(connection, keywords) for connection in filtered]))
 
 #  Wrapper taking list of [account, [keywords]] lists and writing their results to separate csv files
-def process_accounts(acc_info, union = False, save_raw = False):
+def process_accounts(acc_info, config, union = False, save_raw = False):
 	for account, keywords in acc_info:
 		print('Processing ' + account + '.')
 		try:
-			users = get_connections(account, union = union, save_raw = save_raw)
+			users = get_connections(account, config, union = union, save_raw = save_raw)
 		except:
 			users = []
 			print(account + ' invalid.')
@@ -78,7 +84,6 @@ def get_followers(account, save_raw = False):
 		with open('raw_' + account + '.pickle', 'wb') as outpickle:
 			pickle.dump(flwrs, outpickle, protocol = 4)
 	return flwrs
-
 
 def read_acc_info(path):
 	df = pd.read_csv(path, dtype = 'str', delimiter = ',', encoding = 'utf-8')
