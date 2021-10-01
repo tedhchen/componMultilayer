@@ -17,7 +17,7 @@ def twitter_auth(config, user_auth = False):
 	return api
 
 # Takes given Twitter ID and returns intersection or union of its followers and friends
-def get_connections(account, config, union = False, save_raw = False):
+def get_connections(account, config, api, union = False, save_raw = False):
 	flwrs = []
 	frnds = []
 	if config['data']['format'] == 'username':
@@ -52,23 +52,23 @@ def check_user(user, keywords):
 
 # Takes a list of Twitter IDs and returns only those whose bios contain at least one specified keyword
 # Output is in [('id_str', 'screen_name'), ...] format
-def filter_connections(connections, keywords):
+def filter_connections(connections, keywords, api):
 	filtered = []
 	for set100 in np.array_split(connections, math.ceil(len(connections)/100)):
 		filtered.extend(api.lookup_users(list(set100)))
 	return list(filter(None, [check_user(connection, keywords) for connection in filtered]))
 
 #  Wrapper taking list of [account, [keywords]] lists and writing their results to separate csv files
-def process_accounts(acc_info, config, union = False, save_raw = False):
+def process_accounts(acc_info, config, api, union = False, save_raw = False):
 	for account, keywords in acc_info:
 		print('Processing ' + account + '.')
 		try:
-			users = get_connections(account, config, union = union, save_raw = save_raw)
+			users = get_connections(account, config, api, union = union, save_raw = save_raw)
 		except:
 			users = []
 			print(account + ' invalid.')
 		if len(users) > 0:
-			output = filter_connections(users, keywords)
+			output = filter_connections(users, keywords, api)
 			if len(output) > 0:
 				np.savetxt(os.path.join(config['data']['data'], 'check_' + account + '.csv'), output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 
@@ -111,4 +111,4 @@ def read_acc_info(path):
 # api = twitter_auth(params)
 
 # # Processing the list of accounts; will return one csv per account (and raw file in .pickle format)
-# process_accounts(acc_info, params, save_raw = True) # save_raw = False to not save unfiltered list of followers and friends
+# process_accounts(acc_info, params, api, save_raw = True) # save_raw = False to not save unfiltered list of followers and friends
