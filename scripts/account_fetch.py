@@ -83,11 +83,11 @@ def get_followers(account, save_raw = False):
 	return flwrs
 
 def read_acc_info(path):
-	df = pd.read_csv(path, dtype = 'str', delimiter = ',', encoding = 'utf-8')
-	df = df[df['collectiveMain'].notna()]
+	df = pd.read_csv(path, dtype = {'username':'str', 'level':'int'}, delimiter = ',', encoding = 'utf-8')
+	df = df[df['level'] == 0]
 	acckeys = []
 	for index, line in df.iterrows():
-		acckeys.append([line[0], line[1].split(', ')])
+		acckeys.append([line['username'], line['keywords'].split(', ')])
 	return acckeys
 
 # def create_username2idMap(accs, outpath):
@@ -100,12 +100,12 @@ def read_acc_info(path):
 # params.read('config.ini')
 
 # # Loading accounts of interest and their keyword filters
-# # OPTION 1: Just enter the list here.
+# # # OPTION 1: Use external file (see structure in template file)
+# acc_info = read_acc_info(params['data']['mains'])
+
+# # OPTION 2: For quick testing, just enter the list here.
 # # acc_info = [['1397523119770832897', ['postdoctoral', 'scientist']], # Ted's account @tedhchen
 # # 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
-
-# # # OPTION 2: Use external file (see structure in template file)
-# acc_info = read_acc_info(params['data']['mainAccs'])
 
 # # Twitter authentication (can be done in some other way if desired)
 # api = twitter_auth(params)
