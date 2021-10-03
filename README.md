@@ -10,6 +10,14 @@ Repository for multilayer network approaches to working with climate governance 
 ## Protocol
 Details about data collection and labeling for each of the steps outline below can be found in the [`TwitterCodebook.pdf`](https://github.com/tedhchen/componMultilayer/blob/main/TwitterCodebook.pdf).
 
+### Quick Start (\* = teams not running scripts can ignore these steps.)
+1. \*Clone the repository.
+2. \*Change `config.ini.template` into `config.ini` and enter your own settings.
+3. Collect the main accounts (steps 01 and 02).
+4. \*Run Notebook for step 03. 
+5. Label all side accounts (step 04).
+6. \* Merge data and voilà!
+
 ### 00. Identify roster actors
 You should have a predefined list of policy actors. This protocol does not address how to bound policy systems and identify policy actors.
 
@@ -19,7 +27,7 @@ In this step, you should find the collective main account of each of your policy
 ### 02. Identify individual main
 In this step, you should find the individual main accounts of each of your policy actors. Document them in the template file (`template\main_accounts.csv`) and assign them with `level` 1.
 
-### --. Standardize formatting of main accounts
+### 0a. Standardize formatting of main accounts
 This step needs to be done before step 05. Doing it as early as possible after steps 01 and 02 will ensure the most consistent data (so accounts do not change their handles). Run the Jupyter Notebook `02_standardize_main.ipynb`. The output file will be used by a later step, but can be ignored for now.
 
 ### 03. Identify side accounts
