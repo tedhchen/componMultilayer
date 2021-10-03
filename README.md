@@ -11,11 +11,12 @@ Repository for multilayer network approaches to working with climate governance 
 ## Quick Start 
 \* = teams not running scripts can ignore these steps.
 1. \*Clone the repository.
-2. \*Change `config.ini.template` into `config.ini` and enter your own settings.
-3. Collect the main accounts (steps 01 and 02).
-4. \*Run Notebook for step 03. 
-5. Label all side accounts (step 04).
-6. \*Merge data and voilà!
+2. \*Install the required packages (see `compontwitter.yml`).
+3. \*Change `config.ini.template` into `config.ini` and enter your own settings.
+4. Collect the main accounts (steps 01 and 02).
+5. \*Run Notebook for step 03. 
+6. Label all side accounts (step 04).
+7. \*Merge data and voilà!
 
 ## Protocol
 Details about data collection and labeling for each of the steps outline below can be found in the [`TwitterCodebook.pdf`](https://github.com/tedhchen/componMultilayer/blob/main/TwitterCodebook.pdf).
