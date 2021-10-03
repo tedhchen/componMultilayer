@@ -53,4 +53,5 @@ After all preceding steps are complete, run the Jupyter Notebook `05_levels_merg
 	- `0a_standardize_mains.ipynb`: notebook for step 0a.
 	- `05_levels_merge.ipynb`: notebook for step 05.
 	- `config.ini.template`: remove ".template" and enter Twitter API credentials and data directory (suggested to be `data\` from this repo).
-- `templates`: contains the template for steps 01 and 02.
+- `templates\`: contains the template for steps 01 and 02.
+- `TwitterCodebook.pdf`: detailed outline of data collection and labeling protocol
