@@ -15,8 +15,8 @@ def twitter_auth(config, user_auth = False):
 	return api
 
 # Main function that takes path of data folder and returns a standardized version of the raw account csv
-def standardize_mains(path, api):
-	df = pd.read_csv(os.path.join(path, 'main_accounts.csv'), dtype = {'username':'str'}, header = 0)
+def standardize_mains(path, api, mains = 'main_accounts.csv'):
+	df = pd.read_csv(os.path.join(path, mains), dtype = {'username':'str'}, header = 0)
 	accs = df['username']
 	acc_info = []
 	accs_id = [acc for acc in accs if acc.isnumeric()]
@@ -45,4 +45,4 @@ def standardize_mains(path, api):
 # api = twitter_auth(params)
 
 # # Create a standardized main account list csv file
-# standardize_mains(path = params['data']['data'], api = api)
+# standardize_mains(path = params['data']['scratch'], api = api)

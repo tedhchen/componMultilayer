@@ -27,4 +27,4 @@ def merge_data(path, save = True):
 # params.read('config.ini')
 
 # # Running code
-# df = merge_data(path = params['data']['data'])
+# df = merge_data(path = params['data']['scratch'])

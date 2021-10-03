@@ -35,7 +35,8 @@ def get_connections(account, config, api, union = False, save_raw = False):
 	else:
 		connections = list(set(flwrs).intersection(set(frnds)))
 	if save_raw:
-		with open(os.path.join(config['data']['data'], 'raw_' + account + '.pickle'), 'wb') as outpickle:
+		os.makedirs(os.path.join(config['data']['scratch'], 'raw\\'), exist_ok = True)
+		with open(os.path.join(config['data']['scratch'], 'raw\\', 'raw_' + account + '.pickle'), 'wb') as outpickle:
 			pickle.dump([frnds, flwrs], outpickle, protocol = 4)
 	return connections
 
@@ -70,7 +71,7 @@ def process_accounts(acc_info, config, api, union = False, save_raw = False):
 		if len(users) > 0:
 			output = filter_connections(users, keywords, api)
 			if len(output) > 0:
-				np.savetxt(os.path.join(config['data']['data'], 'check_' + account + '.csv'), output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
+				np.savetxt(os.path.join(config['data']['scratch'], 'check_' + account + '.csv'), output, delimiter = ',', fmt = '% s', encoding = 'utf-8')
 	print('Done!')
 
 # Other related utility functions
@@ -97,14 +98,9 @@ def read_acc_info(path):
 # params.read('config.ini')
 
 # # Loading accounts of interest and their keyword filters
-# # # OPTION 1: Use external file (see structure in template file)
 # acc_info = read_acc_info(params['data']['mains'])
 
-# # OPTION 2: For quick testing, just enter the list here.
-# # acc_info = [['1397523119770832897', ['postdoctoral', 'scientist']], # Ted's account @tedhchen
-# # 			['3254940295', ['political']]] # ECANET's account @ECANETtutkimus
-
-# # Twitter authentication (can be done in some other way if desired)
+# # Twitter authentication
 # api = twitter_auth(params)
 
 # # Processing the list of accounts; will return one csv per account (and raw file in .pickle format)
