@@ -31,7 +31,7 @@ def standardize_mains(path, api):
 	outdf = pd.merge(df, acc_map, how = 'left', left_on = 'username', right_on = 0)
 	outdf = pd.merge(outdf, acc_map, how = 'left', left_on = 'username', right_on = 1)
 	outdf.fillna('', inplace = True)
-	outdf['sn'] = outdf['1_x'] + outdf['1_y']
+	outdf['sn'] = (outdf['1_x'] + outdf['1_y']).str.lower()
 	outdf['id'] = outdf['0_x'] + outdf['0_y']
 	outdf.to_csv(os.path.join(path, 'main_standardized.csv'), sep = ',', columns = ['org', 'id', 'sn', 'level'], index = False)
 	return None
