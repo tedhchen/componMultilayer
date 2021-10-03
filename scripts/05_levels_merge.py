@@ -22,9 +22,9 @@ def merge_data(path, save = True):
 	return df
 
 # # Example code, uncomment to run:
-# Reading in configuation
-params = configparser.ConfigParser()
-params.read('config.ini')
+# # Reading in configuation
+# params = configparser.ConfigParser()
+# params.read('config.ini')
 
-# Running code
-df = merge_data(path = params['data']['data'])
+# # Running code
+# df = merge_data(path = params['data']['data'])

@@ -90,10 +90,6 @@ def read_acc_info(path):
 	for index, line in df.iterrows():
 		acckeys.append([line['username'].lower(), line['keywords'].lower().split(', ')])
 	return acckeys
-
-# def create_username2idMap(accs, outpath):
-# 	# coming soon
-# 	return mapping
 	
 # # Example code, uncomment to run:
 # # Reading in configuation
