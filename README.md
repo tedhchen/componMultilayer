@@ -4,19 +4,21 @@ Repository for multilayer network approaches to working with climate governance 
 <img src="pipeline.png" alt="Data Collection Pipeline" width="75%"/>
 
 ## Contents
+- Quick start
 - Protocol
 - Summary of files
 
-## Protocol
-Details about data collection and labeling for each of the steps outline below can be found in the [`TwitterCodebook.pdf`](https://github.com/tedhchen/componMultilayer/blob/main/TwitterCodebook.pdf).
-
-### Quick Start (\* = teams not running scripts can ignore these steps.)
+## Quick Start 
+\* = teams not running scripts can ignore these steps.
 1. \*Clone the repository.
 2. \*Change `config.ini.template` into `config.ini` and enter your own settings.
 3. Collect the main accounts (steps 01 and 02).
 4. \*Run Notebook for step 03. 
 5. Label all side accounts (step 04).
-6. \* Merge data and voilà!
+6. \*Merge data and voilà!
+
+## Protocol
+Details about data collection and labeling for each of the steps outline below can be found in the [`TwitterCodebook.pdf`](https://github.com/tedhchen/componMultilayer/blob/main/TwitterCodebook.pdf).
 
 ### 00. Identify roster actors
 You should have a predefined list of policy actors. This protocol does not address how to bound policy systems and identify policy actors.
@@ -38,3 +40,17 @@ Only do this step after step 03 is complete. Go through each of the `check_[org]
 
 ### 05. Merge all levels
 After all preceding steps are complete, run the Jupyter Notebook `05_levels_merge.ipynb`. This will create an output file `all_accounts.csv`, which contains all policy actors' accounts and their levels. We will use this to collect Twitter behavior of our policy actors.
+
+## Summary of files
+- `data\`: suggested location for setting up working/scratch space
+- `example\`: illustation of the pipeline
+    - `main_accounts.csv`: this is the file where main accounts and keywords were manually entered
+    - `check_cxaalto.csv` and `check_ecanettutkimus.csv`: files returned by the notebook in step 03. Hand labeled according to step 04.	
+	- `main_standardized.csv`: file used for final merging, returned by the notebook in step 0a.
+	- `all_accounts.csv`: final product of this data collection exercise. Returned by the notebook in step 05.
+- `scripts\`: main directory where the scripts and notebooks are stored
+    - `03_identify_sides.ipynb`: notebook for step 03.
+	- `0a_standardize_mains.ipynb`: notebook for step 0a.
+	- `05_levels_merge.ipynb`: notebook for step 05.
+	- `config.ini.template`: remove ".template" and enter Twitter API credentials and data directory (suggested to be `data\` from this repo).
+- `templates`: contains the template for steps 01 and 02.
