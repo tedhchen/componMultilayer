@@ -5,3 +5,4 @@ config.ini
 .ipynb_checkpoints
 *.pdf
 *.pickle
+__pycache__
