@@ -25,13 +25,13 @@ Details about data collection and labeling for each of the steps outline below c
 You should have a predefined list of policy actors. This protocol does not address how to bound policy systems and identify policy actors.
 
 ### 01. Identify collective main
-In this step, you should find the collective main account of each of your policy actors and provide a list of keyword for filtering the side accounts. Document them in the template file ([`template\main_accounts.csv`](https://github.com/tedhchen/componMultilayer/blob/main/templates/main_accounts.csv)) and assign them with `level` 0. Make sure this file is encoded in UTF-8.
+In this step, you should find the collective main account of each of your policy actors and provide a list of keyword for filtering the side accounts. Document them in the template file ([`template\main_accounts.csv`](https://github.com/tedhchen/componMultilayer/blob/main/templates/main_accounts.csv)) and assign them with `level` 0. When entering the account names, do not include the @ sign. Make sure this file is encoded in UTF-8.
 
 ### 02. Identify individual main
-In this step, you should find the individual main accounts of each of your policy actors. Document them in the template file ([`template\main_accounts.csv`](https://github.com/tedhchen/componMultilayer/blob/main/templates/main_accounts.csv)) and assign them with `level` 1. Make sure this file is encoded in UTF-8.
+In this step, you should find the individual main accounts of each of your policy actors. Document them in the template file ([`template\main_accounts.csv`](https://github.com/tedhchen/componMultilayer/blob/main/templates/main_accounts.csv)) and assign them with `level` 1. When entering the account names, do not include the @ sign. Make sure this file is encoded in UTF-8.
 
 ### 0a. Standardize formatting of main accounts
-This step needs to be done before step 05. Doing it as early as possible after steps 01 and 02 will ensure the most consistent data (so accounts do not change their handles). Run the Jupyter Notebook [`0a_standardize_main.ipynb`](https://github.com/tedhchen/componMultilayer/blob/main/scripts/0a_standardize_mains.ipynb). The output file will be used by a later step, but can be ignored for now.
+This step needs to be done before step 05. Doing it as early as possible after steps 01 and 02 will ensure the most consistent data (so accounts do not change their usernames). Run the Jupyter Notebook [`0a_standardize_main.ipynb`](https://github.com/tedhchen/componMultilayer/blob/main/scripts/0a_standardize_mains.ipynb). The output file will be used by a later step, but can be ignored for now.
 
 ### 03. Identify side accounts
 Only do this step after `main_accounts.csv` has been filled with the collective main accounts and their keywords (step 01). Run the Jupyter Notebook [`03_identify_sides.ipynb`](https://github.com/tedhchen/componMultilayer/blob/main/scripts/03_identify_sides.ipynb). It will create coding sheets for each of your collective main accounts (as long as they have potential side accounts).
