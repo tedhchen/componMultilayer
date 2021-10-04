@@ -1,5 +1,5 @@
 # componMultilayer
-Repository for multilayer network approaches to working with climate governance data.
+Repository containing code for collecting and working with policy actor network data. The contents are currently primarily focused on how to collect and label Twitter accounts of policy organizations and their employees/members.
 
 <img src="pipeline.png" alt="Data Collection Pipeline" width="75%"/>
 
