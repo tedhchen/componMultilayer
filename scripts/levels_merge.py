@@ -7,7 +7,7 @@ def merge_data(path, save = True):
 	for main in mains:
 		main_id = main[6:-4]
 		maindat = pd.read_csv(os.path.join(path, main), header = None, dtype = {0:'str', 3:'Int64'}, delimiter = ',', encoding = 'utf-8')
-		maindat = maindat[maindat[3] > 1]
+		maindat = maindat[maindat[3] > 0]
 		if main_id.isnumeric():
 			org = df[df['id'] == main_id].org.item()
 		else:
