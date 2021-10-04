@@ -37,7 +37,7 @@ This step needs to be done before step 05. Doing it as early as possible after s
 Only do this step after `main_accounts.csv` has been filled with the collective main accounts and their keywords (step 01). Run the Jupyter Notebook `03_identify_sides.ipynb`. It will create coding sheets for each of your collective main accounts (as long as they have potential side accounts).
 
 ### 04. Classify side accounts
-Only do this step after step 03 is complete. Go through each of the `check_[org].csv` file and classify the accounts based on instructions in the protocol file. Enter the level of the account in the 4th column and save the file. Collective side accounts are labeled 2, individual side accounts are labeled 3, and unrelated accounts are left blank.
+Only do this step after step 03 is complete. Go through each of the `check_[org].csv` file and classify the accounts based on instructions in the protocol file. Enter the level of the account in the 4th column and save the file. Collective side accounts are labeled 2, individual side accounts are labeled 3, and unrelated accounts are left blank. If an account should be included as individual main (but was not included in step 02), it is fine to label them in this step as 1.
 
 ### 05. Merge all levels
 After all preceding steps are complete, run the Jupyter Notebook `05_levels_merge.ipynb`. This will create an output file `all_accounts.csv`, which contains all policy actors' accounts and their levels. We will use this to collect Twitter behavior of our policy actors.
