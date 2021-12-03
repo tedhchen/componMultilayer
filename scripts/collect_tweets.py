@@ -34,13 +34,15 @@ def load_accounts(config):
 
 def get_accounts(accs, config, ignore_existing = False, start_time = '2017-01-01T00:00:00Z', verbose = True):
 	if ignore_existing:
+		naccs = len(accs)
 		done = [acc[12:-7] for acc in os.listdir(os.path.join(config['data']['rawTweets']))]
 		accs = list(set(accs) - set(done))
-		print('Skipping ' + str(len(done)) + ' accounts already collected. ' + str(len(accs)) + ' accounts remaining.')
+		print('Skipping ' + str(naccs - len(accs)) + ' accounts already collected. ' + str(len(accs)) + ' accounts remaining.')
 	for acc in accs:
 		if verbose:
 			print('Collecting: ' + str(acc) + '.')
 		get_user(acc, config = config, return_df = False, save_raw = True, start_time = start_time)
+	print('Done!')
 	return None
 
 # Example code, uncomment to run:
