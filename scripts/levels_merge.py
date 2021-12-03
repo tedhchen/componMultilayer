@@ -9,9 +9,9 @@ def merge_data(path, save = True):
 		maindat = pd.read_csv(os.path.join(path, main), header = None, dtype = {0:'str', 3:'Int64'}, delimiter = ',', encoding = 'utf-8')
 		maindat = maindat[maindat[3] > 0]
 		if main_id.isnumeric():
-			org = df[df['id'] == main_id].org.item()
+			org = df[(df['id'] == main_id) & (df['level'] == 0)].org.item()
 		else:
-			org = df[df['sn'] == main_id].org.item()
+			org = df[(df['sn'] == main_id) & (df['level'] == 0)].org.item()
 		maindat['org'] = org
 		maindat.rename(columns = {0:'id', 1:'sn', 3:'level'}, inplace = True)
 		df = pd.concat([df, maindat[['org', 'id', 'sn', 'level']]])
