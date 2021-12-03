@@ -1,5 +1,5 @@
 # Prep
-import configparser, pickle, os
+import configparser, pickle, os, time
 import pandas as pd
 from tweepy import Client, Paginator
 
@@ -14,9 +14,12 @@ def get_user(user, config, return_df, save_raw, start_time, max_results_per_call
 				  'lang','possibly_sensitive','public_metrics','referenced_tweets','reply_settings','source']
 	usr_fields = ['created_at','description','entities','location','pinned_tweet_id',
 				  'profile_image_url','protected','public_metrics','url','verified']
-	df = [response for response in Paginator(client.search_all_tweets, 'from:' + str(user), 
-											 start_time = start_time, max_results = max_results_per_call, 
-											 expansions = exps, tweet_fields = twt_fields, user_fields = usr_fields)]
+	df = []
+	for response in Paginator(client.search_all_tweets, 'from:' + str(user), 
+							  start_time = start_time, max_results = max_results_per_call, 
+							  expansions = exps, tweet_fields = twt_fields, user_fields = usr_fields):
+		df.append(response)
+		time.sleep(1.1)
 	if save_raw:
 		os.makedirs(config['data']['rawTweets'], exist_ok = True)
 		with open(os.path.join(config['data']['rawTweets'], 'apiResponse_' + user + '.pickle'), 'wb') as outpickle:
