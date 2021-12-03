@@ -51,7 +51,6 @@ client = twitter_auth(params, keyn = 'bearer')
 # Get list of accounts to collect
 accounts = load_accounts(config = params)
 
-accounts = accounts[0:10]
 # Running data collection code
 get_accounts(accounts, config = params, ignore_existing = True, start_time = '2017-01-01T00:00:00Z')
 
