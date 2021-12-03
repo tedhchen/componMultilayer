@@ -35,7 +35,8 @@ def standardize_mains(path, api, mains = 'main_accounts.csv'):
 	outdf['sn'] = (outdf['1_x'] + outdf['1_y']).str.lower()
 	outdf['id'] = outdf['0_x'] + outdf['0_y']
 	outdf.drop_duplicates(inplace = True)
-	outdf.to_csv(os.path.join(path, 'main_standardized.csv'), sep = ',', columns = ['org', 'id', 'sn', 'level'], index = False)
+	outdf[outdf['sn'] != ''].to_csv(os.path.join(path, 'main_standardized.csv'), sep = ',', columns = ['org', 'id', 'sn', 'level'], index = False)
+	outdf[outdf['sn'] == ''].to_csv(os.path.join(path, 'main_standardized_errors.csv'), sep = ',', columns = ['org', 'username', 'level'], index = False)
 	return None
 
 # # Example code, uncomment to run:
