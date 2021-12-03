@@ -17,6 +17,7 @@ def twitter_auth(config, user_auth = False):
 # Main function that takes path of data folder and returns a standardized version of the raw account csv
 def standardize_mains(path, api, mains = 'main_accounts.csv'):
 	df = pd.read_csv(os.path.join(path, mains), dtype = {'username':'str'}, header = 0)
+	df['username'] = df['username'].str.lower()
 	accs = df['username']
 	acc_info = []
 	accs_id = [acc for acc in accs if acc.isnumeric()]
@@ -27,7 +28,7 @@ def standardize_mains(path, api, mains = 'main_accounts.csv'):
 	if len(accs_sn) > 0:
 		for set100 in np.array_split(accs_sn, math.ceil(len(accs_sn)/100)):
 			acc_info.extend(api.lookup_users(screen_name = list(set100)))
-	acc_map = pd.DataFrame([[acc._json['id_str'], acc._json['screen_name']] for acc in acc_info])
+	acc_map = pd.DataFrame([[acc._json['id_str'], acc._json['screen_name'].lower()] for acc in acc_info])
 	outdf = pd.merge(df, acc_map, how = 'left', left_on = 'username', right_on = 0)
 	outdf = pd.merge(outdf, acc_map, how = 'left', left_on = 'username', right_on = 1)
 	outdf.fillna('', inplace = True)
