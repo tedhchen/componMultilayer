@@ -3,6 +3,7 @@ scratch = data directory e.g. <C:\user\compontwitter\data\>
 mains = path to file with accounts and filter keywords e.g. <C:\user\compontwitter\data\main_accounts.csv>
 
 [keys]
+bearer = 
 key = 
 secret = 
 access = 
