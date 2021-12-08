@@ -19,13 +19,13 @@ def get_user(user, config, return_df, save_raw, start_time, max_results_per_call
 							  start_time = start_time, max_results = max_results_per_call, 
 							  expansions = exps, tweet_fields = twt_fields, user_fields = usr_fields):
 		df.append(response)
-		time.sleep(1.1)
 	if save_raw:
 		os.makedirs(config['data']['rawTweets'], exist_ok = True)
 		with open(os.path.join(config['data']['rawTweets'], 'apiResponse_' + user + '.pickle'), 'wb') as outpickle:
 			pickle.dump(df, outpickle, protocol = 4)
 	if return_df:
 		return df
+		time.sleep(1.01)
 
 def load_accounts(config):
 	df = pd.read_csv(os.path.join(config['data']['scratch'], 'all_accounts.csv'), dtype = {'id':'str'}, header = 0)
