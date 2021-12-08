@@ -19,13 +19,15 @@ def get_user(user, config, return_df, save_raw, start_time, max_results_per_call
 							  start_time = start_time, max_results = max_results_per_call, 
 							  expansions = exps, tweet_fields = twt_fields, user_fields = usr_fields):
 		df.append(response)
-	if save_raw:
-		os.makedirs(config['data']['rawTweets'], exist_ok = True)
-		with open(os.path.join(config['data']['rawTweets'], 'apiResponse_' + user + '.pickle'), 'wb') as outpickle:
-			pickle.dump(df, outpickle, protocol = 4)
-	if return_df:
-		return df
 		time.sleep(1.01)
+	if df[0].data is not None:
+		if save_raw:
+			out = [extract_essentials(response) for response in df]
+			os.makedirs(config['data']['rawTweets'], exist_ok = True)
+			with open(os.path.join(config['data']['rawTweets'], 'apiResponse_' + user + '.pickle'), 'wb') as outpickle:
+				pickle.dump(out, outpickle, protocol = 4)
+		if return_df:
+			return df
 
 def load_accounts(config):
 	df = pd.read_csv(os.path.join(config['data']['scratch'], 'all_accounts.csv'), dtype = {'id':'str'}, header = 0)
@@ -44,6 +46,13 @@ def get_accounts(accs, config, ignore_existing = False, start_time = '2017-01-01
 		get_user(acc, config = config, return_df = False, save_raw = True, start_time = start_time)
 	print('Done!')
 	return None
+
+def extract_essentials(response):
+	tweets = [tweet.data for tweet in response.data]
+	users = [user.data for user in response.includes.get('users')]
+	references = [tweet.data for tweet in response.includes.get('tweets', [])]
+	media = [media.data for media in response.includes.get('media', [])]
+	return [tweets, users, references, media, response.errors]
 
 # Example code, uncomment to run:
 # Reading in configuation
