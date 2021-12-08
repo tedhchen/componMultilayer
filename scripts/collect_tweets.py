@@ -51,7 +51,7 @@ params = configparser.ConfigParser(interpolation = None)
 params.read('config.ini')
 
 # Authenticate Twitter API
-client = twitter_auth(params, keyn = 'bearer')
+client = twitter_auth(params, keyname = 'bearer')
 
 # Get list of accounts to collect
 accounts = load_accounts(config = params)
