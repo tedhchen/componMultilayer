@@ -54,19 +54,18 @@ def extract_essentials(response):
 	media = [media.data for media in response.includes.get('media', [])]
 	return [tweets, users, references, media, response.errors]
 
-# Example code, uncomment to run:
-# Reading in configuation
-params = configparser.ConfigParser(interpolation = None)
-params.read('config.ini')
+# # Example code, uncomment to run:
+# # Reading in configuation
+# params = configparser.ConfigParser(interpolation = None)
+# params.read('config.ini')
 
-# Authenticate Twitter API
-client = twitter_auth(params, keyname = 'bearer')
+# # Authenticate Twitter API
+# client = twitter_auth(params, keyname = 'bearer')
 
-# Get list of accounts to collect
-accounts = load_accounts(config = params)
+# # Get list of accounts to collect
+# accounts = load_accounts(config = params)
 
-# Running data collection code
-get_accounts(accounts, config = params, ignore_existing = True, start_time = '2017-01-01T00:00:00Z')
+# # Running data collection code
+# get_accounts(accounts, config = params, ignore_existing = True, start_time = '2017-01-01T00:00:00Z')
 
-# Get user tweets
-df = get_user('tedhchen', config = params, save_raw = True)
+
