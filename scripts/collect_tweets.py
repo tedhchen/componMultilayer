@@ -19,7 +19,7 @@ def get_user(user, config, return_df, save_raw, start_time, max_results_per_call
 							  start_time = start_time, max_results = max_results_per_call, 
 							  expansions = exps, tweet_fields = twt_fields, user_fields = usr_fields):
 		df.append(response)
-		time.sleep(1.01)
+		time.sleep(1.1)
 	if df[0].data is not None:
 		if save_raw:
 			out = [extract_essentials(response) for response in df]
