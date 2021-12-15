@@ -22,7 +22,7 @@ def get_user(user, config, return_df, save_raw, start_time, max_results_per_call
 		time.sleep(1.1)
 	if df[0].data is not None:
 		if save_raw:
-			out = [extract_essentials(response) for response in df]
+			out = [extract_essentials(response) for response in df if response.data is not None]
 			os.makedirs(config['data']['rawTweets'], exist_ok = True)
 			with open(os.path.join(config['data']['rawTweets'], 'apiResponse_' + user + '.pickle'), 'wb') as outpickle:
 				pickle.dump(out, outpickle, protocol = 4)
