@@ -38,7 +38,7 @@ def get_accounts(accs, config, ignore_existing = False, start_time = '2017-01-01
 	if ignore_existing:
 		naccs = len(accs)
 		done = [acc[12:-7] for acc in os.listdir(os.path.join(config['data']['rawTweets']))]
-		accs = list(set(accs) - set(done))
+		accs = list(set(accs) - set(done)).sort()
 		print('Skipping ' + str(naccs - len(accs)) + ' accounts already collected. ' + str(len(accs)) + ' accounts remaining.')
 	for acc in accs:
 		if verbose:
