@@ -70,6 +70,6 @@ def extract_essentials(response):
 # accounts = load_accounts(config = params)
 
 # # Running data collection code
-# get_accounts(accounts, config = params, ignore_existing = True, start_time = '2017-01-01T00:00:00Z')
+# get_accounts(accounts, config = params, ignore_existing = True, start_time = '2017-01-01T00:00:00Z', end_time = '2021-12-15T23:59:59Z')
 
 
