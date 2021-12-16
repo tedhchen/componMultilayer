@@ -39,6 +39,7 @@ def load_accounts(config):
 
 def get_accounts(accs, config, ignore_existing = False, start_time = '2017-01-01T00:00:00Z', end_time = None, verbose = True):
 	if ignore_existing:
+		os.makedirs(config['data']['rawTweets'], exist_ok = True)
 		naccs = len(accs)
 		done = [acc[12:-7] for acc in os.listdir(os.path.join(config['data']['rawTweets']))]
 		accs = sorted(list(set(accs) - set(done)))
