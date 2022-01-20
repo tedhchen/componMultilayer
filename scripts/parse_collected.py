@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 def parse_account(responses):
-	kw = {'ref_id': np.nan, 'author_id_ref': np.nan, 'text_ref': np.nan, 'public_metrics.retweet_count_ref': np.nan, 'public_metrics.reply_count_ref': np.nan, 'public_metrics.like_count_ref': np.nan, 'public_metrics.quote_count_ref': np.nan}
+	requireds = ['ref_id', 'author_id_ref', 'text_ref', 'public_metrics.retweet_count_ref', 'public_metrics.reply_count_ref', 'public_metrics.like_count_ref', 'public_metrics.quote_count_ref']
 	dfs = []
 	for response in responses:
 		df = pd.json_normalize(response[0])
@@ -15,7 +15,11 @@ def parse_account(responses):
 			df.loc[~df['referenced_tweets'].isnull(), 'ref_id'] = [tweet[0].get('id') for tweet in list(df['referenced_tweets']) if tweet is not np.nan]
 			if response[2] != []:
 				df = pd.merge(df, pd.json_normalize(response[2]), how = 'left', left_on = 'ref_id', right_on = 'id', suffixes = ('', '_ref'), sort = False)
-		if len(df.columns) < 47:
+		kw = {}
+		for required in requireds:
+			if required not in df:
+				kw[required] = np.nan
+		if len(kw) > 0:
 			df = df.assign(**kw)
 		df = df[['id', 'author_id', 'created_at', 'text', 'type', 'public_metrics.retweet_count', 'public_metrics.reply_count', 'public_metrics.like_count', 'public_metrics.quote_count', 'ref_id', 'author_id_ref', 'text_ref', 'public_metrics.retweet_count_ref', 'public_metrics.reply_count_ref', 'public_metrics.like_count_ref', 'public_metrics.quote_count_ref']]
 		df.rename(columns = {'public_metrics.retweet_count': 'retweet_count', 'public_metrics.reply_count': 'reply_count', 'public_metrics.like_count': 'like_count', 'public_metrics.quote_count': 'quote_count',
