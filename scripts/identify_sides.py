@@ -84,12 +84,14 @@ def get_followers(account, save_raw = False):
 			pickle.dump(flwrs, outpickle, protocol = 4)
 	return flwrs
 
-def read_acc_info(path):
+def read_acc_info(path, force_main_names = True):
 	df = pd.read_csv(path, dtype = {'username':'str', 'level':'int'}, delimiter = ',', encoding = 'utf-8')
 	df = df[df['level'] == 0]
 	acckeys = []
 	for index, line in df.iterrows():
 		acckeys.append([line['username'].lower(), line['keywords'].lower().split(', ')])
+	if force_main_names:
+		acckeys = [[acc[0], list(set(acc[1] + [acc[0]]))] for acc in acckeys]
 	return acckeys
 	
 # # Example code, uncomment to run:
