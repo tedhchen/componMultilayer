@@ -38,7 +38,7 @@ def parse_account(responses):
 		dfs = None
 	return dfs
 
-def parser_wrapper(config, verbose = True):
+def parser_wrapper(config, verbose = True, remove_duplicated = False):
 	if not os.path.isfile(config['data']['finalDF']):
 		hds = pd.DataFrame(columns = ['author_id', 'created_at', 'text', 'type', 'retweet_count', 'reply_count', 'like_count', 'quote_count', 'ref_id', 'ref_author_id', 'ref_text', 'ref_retweet_count', 'ref_reply_count', 'ref_like_count', 'ref_quote_count'])
 		hds.to_csv(config['data']['finalDF'], index_label = 'id')
@@ -54,6 +54,12 @@ def parser_wrapper(config, verbose = True):
 			out.to_csv(config['data']['finalDF'], mode = 'a', header = False)
 		del tdf
 	print('Done!', str(n), 'tweet(s) parsed from', str(len(files)), 'account(s).')
+	if remove_duplicated:
+		print('Removing duplicated entries.')
+		df = pd.read_csv(config['data']['finalDF'], dtype = {'id':'str', 'author_id':'str', 'ref_id':'str', 'ref_author_id':'str'}, header = 0)
+		df.drop_duplicates(subset = ['id', 'created_at'], inplace = True)
+		df.sort_values(by = ['author_id', 'created_at', 'id'], inplace = True, ignore_index = True)
+		df.to_csv(config['data']['finalDF'], index = False)
 	return None
 
 # # Example code, uncomment to run:
@@ -61,5 +67,8 @@ def parser_wrapper(config, verbose = True):
 # params = configparser.ConfigParser(interpolation = None)
 # params.read('config.ini')
 
-# # Running parser
+# # Running parser for the first time
 # parser_wrapper(config = params)
+
+# # Running parser after additional data collection
+# parser_wrapper(config = params, remove_duplicated = True)
