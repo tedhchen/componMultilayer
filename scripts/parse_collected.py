@@ -1,4 +1,4 @@
-import configparser, pickle, os, json
+import configparser, pickle, os, json, csv
 import pandas as pd
 import numpy as np
 
@@ -51,15 +51,22 @@ def parser_wrapper(config, verbose = True, remove_duplicated = False):
 			tdf = pickle.load(inpickle)
 			out = parse_account(tdf)
 			n += len(out)
-			out.to_csv(config['data']['finalDF'], mode = 'a', header = False)
+			out.to_csv(config['data']['finalDF'], mode = 'a', header = False, quoting = csv.QUOTE_NONNUMERIC)
 		del tdf
 	print('Done!', str(n), 'tweet(s) parsed from', str(len(files)), 'account(s).')
 	if remove_duplicated:
 		print('Removing duplicated entries.')
-		df = pd.read_csv(config['data']['finalDF'], dtype = {'id':'str', 'author_id':'str', 'ref_id':'str', 'ref_author_id':'str'}, header = 0)
+		df = pd.read_csv(config['data']['finalDF'], dtype = {'id':'str', 'author_id':'str', 
+															 'ref_id':'str', 'ref_author_id':'str',
+															 'created_at':'str', 'text':'str', 
+															 'type':'str', 'ref_text': 'str',
+															 'retweet_count':'float64', 'reply_count':'float64', 
+															 'like_count':'float64', 'quote_count':'float64', 
+															 'ref_retweet_count':'float64', 'ref_reply_count':'float64',
+															 'ref_like_count':'float64', 'ref_quote_count':'float64'}, header = 0)
 		df.drop_duplicates(subset = ['id', 'created_at'], inplace = True)
 		df.sort_values(by = ['author_id', 'created_at', 'id'], inplace = True, ignore_index = True)
-		df.to_csv(config['data']['finalDF'], index = False)
+		df.to_csv(config['data']['finalDF'], index = False, quoting = csv.QUOTE_NONNUMERIC)
 	return None
 
 # # Example code, uncomment to run:
