@@ -64,9 +64,11 @@ def parser_wrapper(config, verbose = True, remove_duplicated = False):
 															 'like_count':'float64', 'quote_count':'float64', 
 															 'ref_retweet_count':'float64', 'ref_reply_count':'float64',
 															 'ref_like_count':'float64', 'ref_quote_count':'float64'}, header = 0)
+		dfsize = len(df.index)
 		df.drop_duplicates(subset = ['id', 'created_at'], inplace = True)
 		df.sort_values(by = ['author_id', 'created_at', 'id'], inplace = True, ignore_index = True)
 		df.to_csv(config['data']['finalDF'], index = False, quoting = csv.QUOTE_NONNUMERIC)
+		print(str(dfsize - len(df.index)), 'entries removed.')
 	return None
 
 # # Example code, uncomment to run:
