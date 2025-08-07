@@ -27,6 +27,6 @@ def add_tag(country, update):
 	return None
 
 # Running script
-countries = ['au', 'br', 'ca', 'cz', 'de', 'fi', 'ie', 'se']
+countries = ['au', 'br', 'ca', 'cz', 'de', 'fi', 'ie', 'in', 'se']
 for country in countries:
-	add_tag(country)
+	add_tag(country, update = True)
