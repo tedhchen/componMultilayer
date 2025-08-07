@@ -11,13 +11,15 @@ def add_tag(country, update):
 	print('Processing ' + country + '...')
 	fp = params['data']['componTwitter'] + country + '_edgelist.csv'
 	edf = pd.read_csv(fp, dtype = {'id':'str', 'author_id':'str', 'ref_id':'str', 'ref_author_id':'str', 'created_at':'str', 'text':'str', 'type':'str', 'ref_text':'str'})
-	climate_tags = pd.read_csv(params['data']['tagLocation'] + 'climate_codes95_' + country + '.csv', dtype = {'tw_id': 'str'})
-	climate_tags.rename(columns = {'tw_id': 'id', '95%': 'checked_only95', '95%+all_rest': 'checked_plus95'}, inplace = True)
+	climate_tags = pd.read_csv(params['data']['tagLocation'] + '_codes_' + country + '.csv', dtype = {'tw_id': 'str'})
+	climate_tags.drop(columns=['text', 'ref_text'], inplace = True)
+	climate_tags.rename(columns = {'tw_id': 'id', 'tag': 'climate'}, inplace = True)
+	climate_tags.drop(index = climate_tags[climate_tags.climate < 0].index, inplace = True)
 	if update:
 		edf.drop(columns=['checked_only95', 'checked_plus95'], inplace = True)
 	edf = pd.merge(edf, climate_tags, how = 'left', left_on = 'id', right_on = 'id')
-	edf['checked_only95'][edf['checked_only95'].isna()] = 0
-	edf['checked_plus95'][edf['checked_plus95'].isna()] = 0
+	edf['climate'][edf['climate'].isna()] = 0
+	edf['climate'][edf['climate'] > 0] = 1
 	edf.to_csv(fp, index = False, quoting = csv.QUOTE_NONNUMERIC)
 	return None
 
