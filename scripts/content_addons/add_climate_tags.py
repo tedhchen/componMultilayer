@@ -20,6 +20,9 @@ def add_tag(country, update):
 	edf = pd.merge(edf, climate_tags, how = 'left', left_on = 'id', right_on = 'id')
 	edf['climate'][edf['climate'].isna()] = 0
 	edf['climate'][edf['climate'] > 0] = 1
+	edf = edf.astype({'retweet_count': 'Int64', 'reply_count': 'Int64', 'like_count': 'Int64',
+					  'quote_count': 'Int64', 'ref_retweet_count': 'Int64', 'ref_reply_count': 'Int64',
+					  'ref_like_count': 'Int64', 'ref_quote_count': 'Int64', 'climate': 'Int64'})
 	edf.to_csv(fp, index = False, quoting = csv.QUOTE_NONNUMERIC)
 	return None
 
