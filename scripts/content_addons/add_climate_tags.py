@@ -12,7 +12,7 @@ def add_tag(country, update):
 	fp = params['data']['componTwitter'] + country + '_edgelist.csv'
 	edf = pd.read_csv(fp, dtype = {'id':'str', 'author_id':'str', 'ref_id':'str', 'ref_author_id':'str', 'created_at':'str', 'text':'str', 'type':'str', 'ref_text':'str'})
 	climate_tags = pd.read_csv(params['data']['tagLocation'] + '_codes_' + country + '.csv', dtype = {'tw_id': 'str'})
-	climate_tags.drop(columns=['text', 'ref_text'], inplace = True)
+	climate_tags.drop(columns=['text', 'ref_text', 'type'], inplace = True)
 	climate_tags.rename(columns = {'tw_id': 'id', 'tag': 'climate'}, inplace = True)
 	climate_tags.drop(index = climate_tags[climate_tags.climate < 0].index, inplace = True)
 	if update:
