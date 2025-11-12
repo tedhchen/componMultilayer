@@ -16,7 +16,7 @@ def add_tag(country, update):
 	climate_tags.rename(columns = {'tw_id': 'id', 'tag': 'climate'}, inplace = True)
 	climate_tags.drop(index = climate_tags[climate_tags.climate < 0].index, inplace = True)
 	if update:
-		edf.drop(columns=['checked_only95', 'checked_plus95'], inplace = True)
+		edf.drop(columns=['climate'], inplace = True)
 	edf = pd.merge(edf, climate_tags, how = 'left', left_on = 'id', right_on = 'id')
 	edf['climate'][edf['climate'].isna()] = 0
 	edf['climate'][edf['climate'] > 0] = 1
